@@ -1,0 +1,48 @@
+<?xml version='1.0'?>
+<sdf version="1.6">
+    <world name="scraping_test">
+        <include>
+            <uri>model://sun</uri>
+        </include>
+        <include>
+            <uri>model://ground_plane</uri>
+        </include>
+        <include>
+            <uri>model://b_serving_spoon</uri>
+            <pose>0.112572 0.508131 0.984633 1.382835 0.015399 0.080779</pose>
+        </include>
+        <include>
+            <uri>model://butter_box</uri>
+            <pose>0.198795 0.509112 0.981783 3.036336 1.368174 -1.866245</pose>
+            <plugin name="stick" filename="libStickPlugin.so">
+                <parentLinkName>link</parentLinkName>
+                <childLinkName>b_serving_spoon::link</childLinkName>
+                <force>5</force>
+            </plugin>
+        </include>
+        <include>
+            <uri>model://b_big_bowl</uri>
+            <pose>0.024164 -0.383989 0.959287 -0.017186 -0.000884 -0.101566</pose>
+        </include>
+        <plugin name="feature_visualization_plugin" filename="libgiskard_visualization_plugin.so"></plugin>
+        <gui>
+            <camera name='user_camera'>
+                <pose>1.700789 1.175709 1.670612 0 0.375643 -2.675000</pose>
+                <view_controller>orbit</view_controller>
+            </camera>
+        </gui>
+        <!--plugin name="grip_test" filename="libGripTest.so"></plugin-->
+        <plugin name="l_grip" filename="libGripTool.so">
+            <parentLinkName>pr2::l_gripper_l_finger_link</parentLinkName>
+            <childLinkName>b_serving_spoon::link</childLinkName>
+            <relativePose>0.15 0.00813051871955 0.035 1.3828344221275815 0.015398730956486372 0.08077832485708741</relativePose>
+        </plugin>
+        <plugin name="r_grip" filename="libGripTool.so">
+            <parentLinkName>pr2::r_gripper_l_finger_link</parentLinkName>
+            <childLinkName>b_big_bowl::link</childLinkName>
+            <!-- <relativePose>0.15 0.00813051871955 0.035 1.3828344221275815 0.015398730956486372 0.08077832485708741</relativePose> -->
+            <relativePose>0.3 0.03 0 1.57 0 0</relativePose>
+        </plugin>
+        
+    </world>
+</sdf>

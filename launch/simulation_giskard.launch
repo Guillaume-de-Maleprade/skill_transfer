@@ -1,0 +1,15 @@
+<launch>
+  <arg name="sim" default="true" />
+  <arg name="gazebo" default="true" />
+  <arg name="trajectory_controller" default="false" />
+  <arg name="pose" default="default"/>
+  <arg name="world" />
+
+  <include file="$(find giskard_pr2)/launch/markers_pose.launch">
+    <arg name="sim" value="$(arg sim)" />
+    <arg name="gazebo" value="$(arg gazebo)" />
+    <arg name="trajectory_controller" value="$(arg trajectory_controller)" />
+    <arg name="pose" value="$(arg pose)"/>
+    <arg name="world" value="$(arg world)"/>
+  </include>
+</launch>

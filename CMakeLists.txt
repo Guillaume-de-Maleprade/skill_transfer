@@ -144,6 +144,14 @@ target_link_libraries(giskard_visualization_plugin ${catkin_LIBRARIES} ${GAZEBO_
 add_library(GripPlugin plugins/GripPlugin.cc)
 target_link_libraries(GripPlugin ${catkin_LIBRARIES} ${GAZEBO_LIBRARIES})
 
+## Grip test
+#add_library(GripTest plugins/GripTest.cc)
+#target_link_libraries(GripTest ${catkin_LIBRARIES} ${GAZEBO_LIBRARIES})
+
+## Grip tool
+add_library(GripTool plugins/GripTool.cc)
+target_link_libraries(GripTool ${catkin_LIBRARIES} ${GAZEBO_LIBRARIES})
+
 ## Stick plugin
 add_library(StickPlugin plugins/StickPlugin.cc)
 target_link_libraries(StickPlugin ${catkin_LIBRARIES} ${GAZEBO_LIBRARIES})

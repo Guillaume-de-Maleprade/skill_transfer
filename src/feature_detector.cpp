@@ -19,6 +19,8 @@ private:
   // File directories
   std::string point_cloud_directory_path_;
   std::string trained_data_directory_path_;
+  // Task name
+  std::string task_name_;
   // TF
   tf2_ros::Buffer tfBuffer;
   tf2_ros::TransformListener tfListener;
@@ -46,6 +48,12 @@ public:
                                node_handle_.getNamespace() + "'.");
     }
 
+    if (!node_handle_.getParam("task_name", task_name_))
+    {
+      throw std::runtime_error("Could not find parameter 'task_name' in namespace '" +
+                               node_handle_.getNamespace() + "'.");
+    }
+
     node_handle_.getParam("show_results", show_results_);
 
     // Start services
@@ -66,14 +74,15 @@ public:
 
     const std::string &point_cloud_file_name = req.point_cloud_file_name;
     const std::string point_cloud_path = point_cloud_directory_path_ + point_cloud_file_name;
+    const std::string task_name = task_name_;
 
     std::string display_options = "";
 
-    display_options = show_results_ ? "1 1" : "";
+    display_options = show_results_ ? "1" : "";
 
     const auto command =
-        boost::format("run_get_target_obj_info.sh /usr/local/MATLAB/MATLAB_Runtime/v93 %1% \"[%2% %3% %4%]\" %5% > /tmp/target_object_info.txt") %
-        point_cloud_path % reference_point.x % reference_point.y % reference_point.z % display_options;
+        boost::format("run_get_target_obj_info.sh /usr/local/MATLAB/MATLAB_Runtime/v93 %1% \"[%2% %3% %4%]\" %5% %6% > /tmp/target_object_info.txt") %
+        point_cloud_path % reference_point.x % reference_point.y % reference_point.z % task_name % display_options;
 
     ROS_INFO_STREAM("Command: " << command);
 
@@ -135,7 +144,7 @@ public:
     // tf::Vector3 transformed_vector = target_2_tool_transform(aligvector);
 
     const auto command =
-        boost::format("run_get_tool_info.sh /usr/local/MATLAB/MATLAB_Runtime/v93 %1% %2% \"[%3%;%4%;%5%]\" \"[%6% %7% %8%]\" %9% %10% %11% > /tmp/tool_info.txt") %
+        boost::format("run_get_tool_info.sh /usr/local/MATLAB/MATLAB_Runtime/v94 %1% %2% \"[%3%;%4%;%5%]\" \"[%6% %7% %8%]\" %9% %10% %11% > /tmp/tool_info.txt") %
         point_cloud_path %
         req.tool_mass %
         req.alignment_vector.x %
