@@ -1,0 +1,17 @@
+-J torso_lift_joint 0.3007849430842053
+-J head_pan_joint -0.016552842705291115
+-J head_tilt_joint 0.7287556667322448
+-J r_upper_arm_roll_joint -1.3351230294970737
+-J r_shoulder_pan_joint -1.0489713192626062
+-J r_shoulder_lift_joint -0.0337662888586017
+-J r_forearm_roll_joint 4.954040580711836
+-J r_elbow_flex_joint -1.6954641064176876
+-J r_wrist_flex_joint -1.5742733400117634
+-J r_wrist_roll_joint -2.398480044745123
+-J l_elbow_flex_joint -1.1000206816083982
+-J l_forearm_roll_joint 0.8018847264145844
+-J l_shoulder_lift_joint 0.09913986734189655
+-J l_shoulder_pan_joint 0.5244532801685695
+-J l_upper_arm_roll_joint 0.5151343804663929
+-J l_wrist_flex_joint -0.6394288886084176
+-J l_wrist_roll_joint 6.7505988913485035

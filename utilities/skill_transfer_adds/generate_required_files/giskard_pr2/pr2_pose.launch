@@ -1,0 +1,46 @@
+<launch>
+  <arg name="sim" default="true" />
+  <arg name="gazebo" default="false" />
+  <arg name="trajectory_controller" default="true" />
+  <arg name="pose" default="default"/>
+  <arg name="world" />
+
+  <!-- START SIMULATED PR2 WITH APPROPRIATE INTERFACE -->
+  <group if="$(arg sim)" >
+    <!-- START SIMULATION -->
+    <include file="$(find iai_pr2_sim)/launch/pr2_pose.launch" >
+      <arg name="gazebo" value="$(arg gazebo)" />
+      <arg name="trajectory_controller" value="$(arg trajectory_controller)" />
+      <arg name="world" value="$(arg world)"/>
+      <arg name="pose" value="$(arg pose)"/>
+    </include>
+    <!-- START JOINT_STATE_SEPARATOR, IF NEEDED -->
+    <group if="$(arg gazebo)" >
+      <node unless="$(arg trajectory_controller)" pkg="giskard_ros"
+            type="joint_state_separator" name="pr2_cmd_separator" output="screen" >
+        <rosparam param="joint_names" file="$(find giskard_pr2)/config/pr2_upper_body.yaml" />
+        <remap from="~joint_states" to="/whole_body_controller/velocity_controller/command" />
+      </node>
+    </group>
+  </group>
+
+  <!-- START APPROPRIATE INTERFACE ON REAL PR2 -->
+  <group unless="$(arg sim)" >
+
+    <!-- START INSTANTANEOUS VELOCITY INTERFACE ON REAL PR2 -->
+    <group unless="$(arg trajectory_controller)"  >
+      <include file="$(find iai_pr2_controller_configuration)/launch/spawn_velocity_controllers.launch" />
+
+      <node pkg="giskard_ros" type="joint_state_separator" name="pr2_cmd_separator"
+            output="screen" >
+        <rosparam param="joint_names" file="$(find giskard_pr2)/config/pr2_upper_body.yaml" />
+        <remap from="~joint_states" to="/pr2/commands" />
+      </node>
+    </group>
+
+    <!-- START JOINT-TRAJECTORY INTERFACE ON REAL PR2 -->
+    <include if="$(arg trajectory_controller)"
+      file="$(find iai_pr2_controller_configuration)/launch/spawn_whole_body_controller.launch" />
+
+  </group>
+</launch>

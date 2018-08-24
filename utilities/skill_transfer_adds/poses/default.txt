@@ -1,0 +1,12 @@
+-J torso_lift_joint 0.07250932142889704
+-J laser_tilt_mount_joint -0.13933306544164914
+-J r_upper_arm_roll_joint -0.6938552244838201
+-J r_shoulder_pan_joint -0.6309410252184442
+-J r_shoulder_lift_joint 0.2796704306122857
+-J r_forearm_roll_joint -0.8391505065360434
+-J r_elbow_flex_joint -0.5901622224415348
+-J r_wrist_flex_joint -1.7964167524873114
+-J r_wrist_roll_joint 0.15559343715469343
+-J l_shoulder_lift_joint 0.8354340316035369
+-J l_elbow_flex_joint -1.3533392318640898
+-J l_wrist_flex_joint -0.21952227097341037
